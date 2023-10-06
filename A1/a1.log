@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.12)  6 OCT 2023 05:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.12)  6 OCT 2023 07:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -527,20 +527,20 @@ File: lstlang1.sty 2023/02/27 1.9 listings language file
 (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 )
-[8] [9] [10] [11]
+[8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22]
 
 Package caption Warning: Unused \captionsetup[sub] on input line 13.
 See the caption package documentation for explanation.
 
 (a1.aux) ) 
 Here is how much of TeX's memory you used:
- 7232 strings out of 476331
- 112666 string characters out of 5787765
- 1998660 words of memory out of 5000000
- 27596 multiletter control sequences out of 15000+600000
+ 7278 strings out of 476331
+ 113250 string characters out of 5787765
+ 2002660 words of memory out of 5000000
+ 27642 multiletter control sequences out of 15000+600000
  520661 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,11n,79p,722b,1937s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 69i,12n,79p,722b,1937s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
 onts/cm/cmbx12.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/pu
 blic/amsfonts/cm/cmmi10.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts
@@ -555,9 +555,9 @@ pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
 m/cmsy10.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
 msfonts/cm/cmsy8.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/amsfonts/cm/cmtt9.pfb>
-Output written on a1.pdf (11 pages, 257722 bytes).
+Output written on a1.pdf (22 pages, 274789 bytes).
 PDF statistics:
- 100 PDF objects out of 1000 (max. 8388607)
+ 135 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

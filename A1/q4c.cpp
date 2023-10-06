@@ -22,6 +22,66 @@ std::string debug     =   "00467891267219534819834256785976142342685379171392485
 int nodesExpanded = 0;
 
 
+// This will return the best variable, weight placed on constrained rather then constraining
+int getBestVariable(const int domain[][10], const vector<int> *terms) {
+
+    int maxScore = 0;
+    int valToReturn = terms->at(0);
+
+    for (int i = 0; i < 81; i++) {
+        int count = 0;
+        for (int x = 1; x < 10; x++) {
+            if (domain[i][x] != 0) {
+                count++;
+            }
+        }
+    }
+
+    for (auto idx : *terms) {
+        // Calculations for constraints on this variable
+        int constrainedAmount = 0;
+
+        for (int x = 1; x < 10; x++) {
+            if (domain[idx][x] != 0) {
+                constrainedAmount += 1;
+            }
+        }
+
+        // Calculations for how this variable impacts others constraints
+        int constrainingAmount = 0;
+
+        int row = idx/9;
+        int column = idx%9;
+
+        for ( int i = 0; i < 9; i++ ) {
+            if (domain[i+row*9][idx] == 0) { constrainingAmount++; }
+            if (domain[i*9 +column][idx] == 0) { constrainingAmount++; }
+        }
+
+        int rowStart = row/3;
+        int columnStart = column/3;
+
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                if (domain[columnStart*3 + (y+rowStart*3)*9 + x] != 0) {
+                    constrainingAmount++;
+                }
+            }
+        }
+
+        // We weigh being constrained much more than constraining other variables
+        if (maxScore < constrainedAmount*9 + constrainingAmount) {
+            maxScore = constrainedAmount*9 + constrainingAmount;
+            valToReturn = idx;
+        }
+
+
+
+    }
+
+    return valToReturn;
+
+}
 // Helper function to display the grid
 void printGrid(const int map[81]) {
     for (int i = 0; i < 9; i++) {
@@ -61,6 +121,35 @@ bool setDomain(int map[81], int domain[][10], int idx) {
     }
     return true;
 
+}
+
+
+// This method gets us the optimal domain for our variable
+void getDomain(vector<int> *options, const int domain[][10], const int board[81], int idx) {
+
+    vector<pair<int,int>> temp;
+    int count[10];
+
+    for (int i = 0; i < 81; i++ ) {
+        if (board[i] != 0) {
+            count[board[i]] += 1;
+        }
+    }
+
+    for (int x = 1; x < 10; x++) {
+        if (domain[idx][x] == 0) {
+            temp.emplace_back(count[x], x);
+        }
+    }
+
+    std::sort(temp.begin(), temp.end(), [](const auto& a, const auto& b) {
+        return a.first > b.first; // Sort in descending order
+    });
+
+    for (const auto& pair : temp) {
+        options->push_back(pair.second);
+    }
+
 
 }
 
@@ -88,15 +177,25 @@ void init(int map[81], int takenValues[][10]) {
  */
 bool sukodku(const int board[81], const int domain[][10], const vector<int>* const valsToReplace, int pos) {
 
-    int positionToCheck = valsToReplace->operator[](pos);
-    pos++;
-
-    if (valsToReplace->size() < pos) {
+    if (valsToReplace->empty()) {
         printGrid(board);                   // Print the solution!
         return true;
     }
 
-    for (int idx = 1; idx < 10; idx++) {
+    int positionToCheck = getBestVariable(domain, valsToReplace);
+
+    vector<int> newVector;
+    for (int i = 0; i < valsToReplace->size(); i++) {
+        if (valsToReplace->at(i) != positionToCheck) {
+            newVector.push_back(valsToReplace->at(i));
+        }
+    }
+
+    vector<int> valsToSort;
+
+    // Call our method to get the best domain
+    getDomain(&valsToSort, domain,board, positionToCheck);
+    for (int idx : valsToSort){
 
         if (domain[positionToCheck][idx] != 1) { // Check if the domain is empty
 
@@ -133,7 +232,7 @@ bool sukodku(const int board[81], const int domain[][10], const vector<int>* con
             if (!fullyUsed) {
 
                 // Recurse until we can find the proper solution
-                bool result = sukodku(newMap, newDomain, valsToReplace, pos);
+                bool result = sukodku(newMap, newDomain, &newVector, pos);
 
                 if (result) {
                     return true;
@@ -149,7 +248,7 @@ bool sukodku(const int board[81], const int domain[][10], const vector<int>* con
 
                 if (hasNoZeros) {
                     // if one away from being solved run it again just to check
-                    bool result = sukodku(newMap, newDomain, valsToReplace, pos);
+                    bool result = sukodku(newMap, newDomain, &newVector, pos);
 
                     if (result) {
                         return true;
@@ -169,9 +268,9 @@ int main() {
     auto rng = std::default_random_engine{};         // Random needed for shuffle
     rng.seed(getpid());
 
-    for (int runs = 0; runs < 10 ; runs++ ) {         // Number of runs to do
+    for (int runs = 0; runs < 50 ; runs++ ) {         // Number of runs to do
 
-        std::string readin = hardBoard;              // Which board to use
+        std::string readin = evilBoard;              // Which board to use
 
         // This will convert the string into a 1D int array
         int board[81];
