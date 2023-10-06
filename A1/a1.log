@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.12)  2 OCT 2023 12:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.12)  6 OCT 2023 05:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -129,28 +129,154 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 )
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count274
+\lst@gtempboxa=\box53
+\lst@token=\toks23
+\lst@length=\count275
+\lst@currlwidth=\dimen158
+\lst@column=\count276
+\lst@pos=\count277
+\lst@lostspace=\dimen159
+\lst@width=\dimen160
+\lst@newlines=\count278
+\lst@lineno=\count279
+\lst@maxwidth=\dimen161
+
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count280
+\lst@skipnumbers=\count281
+\lst@framebox=\box54
+)
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
+Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
+
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2022/09/22 v1.2b Graphics/color driver for pdftex
+)
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
+) (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.c
+fg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+)
+\Gin@req@height=\dimen162
+\Gin@req@width=\dimen163
+) (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/subfig\subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2023/07/31 v3.6n Customizing captions (AR)
+
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen164
+\captionmargin=\dimen165
+\caption@leftmargin=\dimen166
+\caption@rightmargin=\dimen167
+\caption@width=\dimen168
+\caption@indent=\dimen169
+\caption@parindent=\dimen170
+\caption@hangindent=\dimen171
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count282
+\c@continuedfloat=\count283
+Package caption Info: listings package is loaded.
+)
+\c@KVtest=\count284
+\sf@farskip=\skip53
+\sf@captopadj=\dimen172
+\sf@capskip=\skip54
+\sf@nearskip=\skip55
+\c@subfigure=\count285
+\c@subfigure@save=\count286
+\c@lofdepth=\count287
+\c@subtable=\count288
+\c@subtable@save=\count289
+\c@lotdepth=\count290
+\sf@top=\skip56
+\sf@bottom=\skip57
+) (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/blkarray\blkarray.sty
+Package: blkarray 2015/02/27 v0.07 Block array (dpc)
+\c@BAenumi=\count291
+\BA@col=\count292
+\BA@block@cnt=\count293
+\BA@final@box=\box55
+\BA@first@box=\box56
+\BA@colsep=\dimen173
+\BA@ftn=\toks24
+\BAextrarowheight=\dimen174
+\BAextraheightafterhline=\dimen175
+\BAarrayrulewidth=\dimen176
+\BAdoublerulesep=\dimen177
+\BAfootskip=\dimen178
+\BA@dashbox=\box57
+\BA@ddashbox=\box58
+) (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip58
+\multirow@cntb=\count294
+\multirow@dima=\skip59
+\bigstrutjot=\dimen179
+) (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count295
+\float@exts=\toks25
+\float@box=\box59
+\@float@everytoks=\toks26
+\@floatcapt=\box60
+)
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+LaTeX Info: Redefining \subref on input line 189.
+Package subcaption Info: The counter `subfigure' was already defined by
+(subcaption)             \newsubfloat (offered by the subfig package) on input 
+line 238.
+Package subcaption Info: The counter `subtable' was already defined by
+(subcaption)             \newsubfloat (offered by the subfig package) on input 
+line 238.
+)
 (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2023-03-30 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count274
-\l__pdf_internal_box=\box53
+\l__color_backend_stack_int=\count296
+\l__pdf_internal_box=\box61
 ) (a1.aux)
 \openout1 = `a1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
-LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -186,113 +312,252 @@ LaTeX Font Info:    ... okay on input line 5.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 24.
+\c@lstlisting=\count297
+
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count298
+\scratchdimen=\dimen180
+\scratchbox=\box62
+\nofMPsegments=\count299
+\nofMParguments=\count300
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count301
+\MPscratchDim=\dimen181
+\MPnumerator=\count302
+\makeMPintoPDFobject=\count303
+\everyMPtoPDFconversion=\toks28
+)
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: subfig package v1.3 is loaded.
+Package caption Info: float package is loaded.
+Package caption Info: End \AtBeginDocument code.
+
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 56.
+
 
 (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 24.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 56.
 
 
 (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 24--27
+Underfull \hbox (badness 10000) in paragraph at lines 56--59
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--30
+Underfull \hbox (badness 10000) in paragraph at lines 59--62
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 27--30
+Underfull \hbox (badness 10000) in paragraph at lines 59--62
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--33
+Underfull \hbox (badness 10000) in paragraph at lines 62--65
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--33
+Underfull \hbox (badness 10000) in paragraph at lines 62--65
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
+Underfull \hbox (badness 10000) in paragraph at lines 65--70
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
+Underfull \hbox (badness 10000) in paragraph at lines 65--70
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
+Underfull \hbox (badness 10000) in paragraph at lines 65--70
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
+Underfull \hbox (badness 10000) in paragraph at lines 65--70
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
+Underfull \hbox (badness 10000) in paragraph at lines 65--70
 
  []
 
 [1
 
 {C:/Users/robde/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Overfull \hbox (27.0479pt too wide) detected at line 52
+Overfull \hbox (27.0479pt too wide) detected at line 84
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--58
+Underfull \hbox (badness 10000) in paragraph at lines 84--90
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--58
+Underfull \hbox (badness 10000) in paragraph at lines 84--90
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--58
+Underfull \hbox (badness 10000) in paragraph at lines 84--90
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--58
+Underfull \hbox (badness 10000) in paragraph at lines 84--90
 
  []
 
-[2] (a1.aux) ) 
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 104--105
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 117--119
+
+ []
+
+<q1Actual.png, id=15, 642.4pt x 481.8pt>
+File: q1Actual.png Graphic file (type png)
+<use q1Actual.png>
+Package pdftex.def Info: q1Actual.png  used on input line 122.
+(pdftex.def)             Requested size: 199.16928pt x 149.37851pt.
+<q1Pred.png, id=16, 642.4pt x 481.8pt>
+File: q1Pred.png Graphic file (type png)
+<use q1Pred.png>
+Package pdftex.def Info: q1Pred.png  used on input line 124.
+(pdftex.def)             Requested size: 199.16928pt x 149.37851pt.
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+Missing character: There is no Ö in font cmr12!
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+Missing character: There is no Ö in font cmr12!
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+Missing character: There is no Ö in font cmr12!
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+Missing character: There is no Ö in font cmr12!
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+Missing character: There is no Ö in font cmr12!
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+
+LaTeX Warning: Command \texttimes invalid in math mode on input line 132.
+
+Missing character: There is no Ö in font cmr12!
+[3 <./q1Actual.png (PNG copy)> <./q1Pred.png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 135--136
+
+ []
+
+[4] [5]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 2
+50.
+ (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/base\omscmr.fd
+File: omscmr.fd 2022/07/10 v2.5l Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 250.
+
+Underfull \hbox (badness 10000) in paragraph at lines 250--253
+
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 404--406
+
+ []
+
+[7]
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+(C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+)
+[8] [9] [10] [11]
+
+Package caption Warning: Unused \captionsetup[sub] on input line 13.
+See the caption package documentation for explanation.
+
+(a1.aux) ) 
 Here is how much of TeX's memory you used:
- 2313 strings out of 476331
- 34640 string characters out of 5787765
- 1860660 words of memory out of 5000000
- 22769 multiletter control sequences out of 15000+600000
- 518159 words of font info for 54 fonts, out of 8000000 for 9000
+ 7232 strings out of 476331
+ 112666 string characters out of 5787765
+ 1998660 words of memory out of 5000000
+ 27596 multiletter control sequences out of 15000+600000
+ 520661 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,10n,62p,722b,247s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmbx12.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmmi12.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/robde/AppData/Local/Programs/
-MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/robde/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/robde/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/robd
-e/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on a1.pdf (2 pages, 87457 bytes).
+ 69i,11n,79p,722b,1937s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmbx12.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/cm/cmmi10.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/robde/AppData/Local/Programs/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/robde/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/robde/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/robde/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/
+robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:
+/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.
+pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmsy8.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmtt9.pfb>
+Output written on a1.pdf (11 pages, 257722 bytes).
 PDF statistics:
- 44 PDF objects out of 1000 (max. 8388607)
+ 100 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
