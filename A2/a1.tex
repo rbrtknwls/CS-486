@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{blkarray}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup[sub]{}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\begin{document}
+\begin{titlepage}
+	\setlength{\parindent}{0pt}
+	\large
+
+\vspace*{-2cm}
+
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+University of Waterloo \par
+CS 486 \par
+\vspace{0.05cm}
+r2knowle: 2023-10-1
+\vspace{0.2cm}
+
+{\huge Assignment \# 2 \par}
+\hrule
+
+\vspace{0.5cm}
+\textbf{Q1)} To begin, the probability the car is involved in the accident is blue equals to the probability the car is blue given that it is identified as blue. In other words given the following events:
+\begin{align*}
+\text{B} &= \text{Car is blue.} \\
+\text{I} &= \text{Car is identified as blue.}
+\end{align*}
+Thus our goal is to solve for:
+\[ P(B|I) \]
+Note that from Bayes theorem, this is equivalent to:
+\begin{align*}
+P(B|I) &= \frac{P(I|B)\times P(B)}{P(I)} \\
+&= \frac{P(I|B)\times P(B)}{P(I|B)P(B) + P(I|\neg B)P(\neg B)} \\
+&= \frac{0.8 \times 0.15}{0.8 \times 0.15 + 0.2 \times 0.85} \\
+&= \frac{0.12}{0.12 + 0.17} \\
+&= \frac{0.12}{0.29} \\
+&= 41.38\%
+\end{align*}
+Thus the probability that the car is blue given that it is correctly identified is equal to 41.38$\%$.\\\\
+\textbf{Q2)} We get the following answers and rational to the given questions:
+\begin{align*}
+\text{a)} & \text{ J is not independant of A, as there is an undirected path between them.} \\
+\text{b)} & \text{ J is not independant of A given G, as we have the given undirected path:} \\
+& J -> H -> F -> B -> E -> A\\
+\text{c)} & \text{ J is not independant of A given F, as we have the given undirected path:} \\
+& J -> H -> I -> G -> E -> A\\
+\text{d)} & \text{ J is independant of A given \{G,F\}, as there is no undirected path between them.} \\
+\text{e)} & \text{ J is not independant of G, as there is an undirected path between them.} \\
+\text{f)} & \text{ J is not independant of G given I, as we have the given undirected path:} \\
+& J -> H -> F -> B -> E -> G \\
+\text{g)} & \text{ J is not independant of H given B, as we have the given undirected path:} \\
+& G -> I -> H -> J\\
+\text{i)} & \text{ For G to be independant of J, we need to observe H. We dont need to oberserve any of the following:} \\
+& \{A,B,C,D,E,F,I\}
+\end{align*}
+\end{titlepage}
+\end{document}

@@ -58,11 +58,11 @@ Thus arriving from s to g.\\\\
 \textbf{Q1bi)} This heuristic is admissible, to prove that this is the case we will use contradiction. Assume that the heuristic is not admissible this means that for some node n:
 \[ h(n) > h^*(n) \]
 where $h^*(n)$ is the true cost of node n. This means that the true cost of n is actually shorter with a barrier, and since a barrier only every reduces the path size this is impossible. Therefore the heuristic is admissible. \\\\
-\textbf{Q1bi)} Using depth first search with this heuristic gives us the nodes expanded in the following order: \\
+\textbf{Q1bii)} Using best first search with this heuristic gives us the nodes expanded in the following order: \\
 \[ s -> h -> k -> c -> a -> b -> d -> m -> g \]
 Which gets us from s to g. \\\\
-\textbf{Q1bii)} Using $A^*$ gives us the nodes expanded in the following order:  \\
-\[ s -> h -> k -> f -> p -> q -> a -> r -> t -> g \]
+\textbf{Q1biii)} Using $A^*$ gives us the nodes expanded in the following order:  \\
+\[ s -> h -> k -> f -> c -> p -> q -> r -> t -> g \]
 Which gets us from s to g.\\\\\\\\
 \textbf{Q2a)} Yes, in the event that all the paths have an equal cost. To prove this lets use contradiction, assume that breath width search does not expand values in the same state as uniform-cost  search does. That would imply that the node n's ancestors would be different in uniform search then breath first search. However if the ancestors are different then that would imply that breath first search is on an unoptimised path which is impossible as breath first search minimizes the number of nodes visited and since the path cost is constant this should minimize cost. Therefore because we have a contradiction breath width search is a special case of uniform-cost search.\\\\
 \textbf{Q2b)} No, as there is no heuristic which guarantees us to always expand the child node (branch) consider the example in 1, we cant define a heuristic such that we will only expand the child node. \\\\
