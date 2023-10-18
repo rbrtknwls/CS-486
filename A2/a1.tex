@@ -10,6 +10,12 @@
 \usepackage{float}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{dcolumn}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,arrows}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{D{.}{.}{1.#1}}
 \captionsetup[sub]{}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -74,16 +80,143 @@ Thus the probability that the car is blue given that it is correctly identified 
 \text{a)} & \text{ J is not independant of A, as there is an undirected path between them.} \\
 \text{b)} & \text{ J is not independant of A given G, as we have the given undirected path:} \\
 & J -> H -> F -> B -> E -> A\\
-\text{c)} & \text{ J is not independant of A given F, as we have the given undirected path:} \\
-& J -> H -> I -> G -> E -> A\\
+\text{c)} & \text{ J is independant of A given F, as the path with G is blocked by I} \\
 \text{d)} & \text{ J is independant of A given \{G,F\}, as there is no undirected path between them.} \\
-\text{e)} & \text{ J is not independant of G, as there is an undirected path between them.} \\
+\text{e)} & \text{ J is not independant of G, as there is an undirected path between them:} \\
+& J -> H -> F -> B -> E -> G\\
 \text{f)} & \text{ J is not independant of G given I, as we have the given undirected path:} \\
 & J -> H -> F -> B -> E -> G \\
-\text{g)} & \text{ J is not independant of H given B, as we have the given undirected path:} \\
-& G -> I -> H -> J\\
+\text{g)} & \text{ J is independant of H given B, as I blockes the path} \\
+\text{h)} & \text{ J is not independant of H given \{I,B\}, as by case 3 in d seperation I is blocking.} \\
 \text{i)} & \text{ For G to be independant of J, we need to observe H. We dont need to oberserve any of the following:} \\
 & \{A,B,C,D,E,F,I\}
 \end{align*}
+\newpage
+\textbf{Q3)} Before outputting the results of the code, its important to know how I structured this problem. Each value in the CPT, is expressed an tuple of an array of random variables plus the probability. For example P(A=T, B=F) = 0.2 is saved as:
+
+\[ (["A", "NB"], 0.2) \]
+
+Where the "N" infront of the random variable represents not. Code is provided at the end of this document. Relevant pieces of code are provided in the questions that use them. \\\\
+
+\textbf{Q4a)} Below we see the Bayenisan network for the given problem:
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1cm and 0cm,
+  mynode/.style={draw,ellipse,text width=2cm,align=center}
+]
+\node[mynode] (fh) {FH};
+\node[mynode, above left=of fh] (fm) {FM};
+\node[mynode, below left=of fm] (fs) {FS};
+\node[mynode, below=of fs] (fb) {FB};
+\node[mynode, above right=of fh] (ndg) {NDG};
+\node[mynode, below right=of ndg] (na) {NA};
+
+\path (fm) edge[-latex] (ndg)
+(na) edge[-latex] (ndg) 
+(fm) edge[-latex] (fh) 
+(fs) edge[-latex] (fh) 
+(fs) edge[-latex] (fb) 
+(ndg) edge[-latex] (fh);
+
+\node[below=0.5cm of na]
+{
+\begin{tabular}{P{1.4cm}P{1.4cm}}
+\toprule
+\multicolumn{2}{c}{Neighbour is away} \\
+\multicolumn{1}{c}{T} & \multicolumn{1}{c}{F} \\
+\cmidrule{1-2}
+0.3 & 0.7 \\
+\bottomrule
+\end{tabular}
+};
+
+\node[below left=0.5cm of fb]
+{
+\begin{tabular}{cM{2}M{2}}
+\toprule
+& \multicolumn{2}{c}{Food not eaten} \\
+Sick & \multicolumn{1}{c}{T} & \multicolumn{1}{c}{F} \\
+\cmidrule(r){1-1}\cmidrule(l){2-3}
+F & 0.1 & 0.9 \\
+T & 0.6 & 0.4 \\
+\bottomrule
+\end{tabular}
+};
+
+\node[below=2.5cm of fh]
+{
+\begin{tabular}{cccM{2}M{2}}
+\toprule
+& & & \multicolumn{2}{c}{Fido is howling} \\
+Sick & Moon & Neighbour & \multicolumn{1}{c}{T} & \multicolumn{1}{c}{F} \\
+\cmidrule(r){1-1}\cmidrule(l){2-2}\cmidrule(l){3-4}\cmidrule(l){4-5}
+F & F & F & 0 & 1 \\
+F & F & T & 0.2 & 0.8 \\
+F & T & F & 0.4 & 0.6 \\
+F & T & T & 0.65 & 0.35 \\
+T & F & F & 0.5 & 0.5 \\
+T & F & T & 0.75 & 0.25 \\
+T & T & F & 0.9 & 0.1 \\
+T & T & T & 0.99 & 0.01 \\
+\bottomrule
+\end{tabular}
+};
+
+\node[left=0.5cm of fs]
+{
+\begin{tabular}{P{1.3cm}P{1.3cm}}
+\toprule
+\multicolumn{2}{c}{Fido is sick} \\
+\multicolumn{1}{c}{T} & \multicolumn{1}{c}{F} \\
+\cmidrule{1-2}
+0.05 & 0.95 \\
+\bottomrule
+\end{tabular}
+};
+
+\node[above left=0.5cm of fm]
+{
+\begin{tabular}{P{1.3cm}P{1.3cm}}
+\toprule
+\multicolumn{2}{c}{Full moon} \\
+\multicolumn{1}{c}{T} & \multicolumn{1}{c}{F} \\
+\cmidrule{1-2}
+$\frac{1}{28}$ & $\frac{27}{28}$ \\
+\bottomrule
+\end{tabular}
+};
+
+\node[above=0.5cm of ndg]
+{
+\begin{tabular}{ccM{2}M{2}}
+\toprule
+& & \multicolumn{2}{c}{Neighour's dog is howling} \\
+Moon & Neighbour & \multicolumn{1}{c}{T} & \multicolumn{1}{c}{F} \\
+\cmidrule(r){1-1}\cmidrule(l){2-2}\cmidrule(l){3-4}
+F & F & 0 & 1 \\
+F & T & 0.5 & 0.5 \\
+T & F & 0.4 & 0.6 \\
+T & T & 0.8 & 0.2 \\
+\bottomrule
+\end{tabular}
+};
+
+\end{tikzpicture}
+\end{center}
+\textbf{Q4b)} For this question we will make the following factors out of our random variables:
+\begin{align*}
+& f_1(FM) = P(FM) \\ 
+& f_2(NA) = P(NA) \\
+& f_3(FS) = P(FS) \\
+& f_4(NDG, FM, NA) = P(NDG | FM, NA) \\
+& f_5(NDG, NA) = \sum_{FM} f_4(NDG, FM, NA)f_1(FM)  \\
+& f_6(NDG) = \sum_{NA} f_5(NDG, NA)f_1(NA) \\
+& f_7(FH, FS, FM, NDG) = P(FH | FS, FM, NDG) \\
+& f_8(FH, FS, FM) = \sum_{NDG} f_7(FH, FS, FM, NDG)f_6(NDG)  \\
+& f_9(FH, FS) = \sum_{FM} f_8(FH, FS, FM)f_6(FM) \\
+& f_{10}(FH) = \sum_{FS} f_8(FH, FS)f_6(FS) \\
+\end{align*}
+Plugging this into our code gives us the following answers:
+
 \end{titlepage}
 \end{document}
