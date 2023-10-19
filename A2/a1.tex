@@ -77,7 +77,7 @@ P(B|I) &= \frac{P(I|B)\times P(B)}{P(I)} \\
 Thus the probability that the car is blue given that it is correctly identified is equal to 41.38$\%$.\\\\
 \textbf{Q2)} We get the following answers and rational to the given questions:
 \begin{align*}
-\text{a)} & \text{ J is not independant of A, as there is an undirected path between them.} \\
+\text{a)} & \text{ J is independant of A, as E blocks them by rule 3.} \\
 \text{b)} & \text{ J is not independant of A given G, as we have the given undirected path:} \\
 & J -> H -> F -> B -> E -> A\\
 \text{c)} & \text{ J is independant of A given F, as the path with G is blocked by I} \\
@@ -214,9 +214,133 @@ T & T & 0.8 & 0.2 \\
 & f_7(FH, FS, FM, NDG) = P(FH | FS, FM, NDG) \\
 & f_8(FH, FS, FM) = \sum_{NDG} f_7(FH, FS, FM, NDG)f_6(NDG)  \\
 & f_9(FH, FS) = \sum_{FM} f_8(FH, FS, FM)f_6(FM) \\
-& f_{10}(FH) = \sum_{FS} f_8(FH, FS)f_6(FS) \\
+& f_{10}(FH) = \sum_{FS} f_8(FH, FS)f_6(FS)
 \end{align*}
 Plugging this into our code gives us the following answers:
-
+\begin{lstlisting}
+#   FULL MOON
+f1 = ((["M"], 1 / 28), (["NM"], 27 / 28))
+#   NEIGHBOUR IS AWAY
+f2 = ((["N"], 0.3), (["NN"], 0.7))
+#   FIDO IS SICK
+f3 = ((["S"], 0.05), (["NS"], 0.95))
+#   NEIGHBOURS DOG IS HOWLING
+f4 = ((["M", "N", "D"], 0.8), (["M", "N", "ND"], 0.2),
+      (["M", "NN", "D"], 0.4), (["M", "NN", "ND"], 0.6),
+      (["NM", "N", "D"], 0.5), (["NM", "N", "ND"], 0.5),
+      (["NM", "NN", "D"], 0), (["NM", "NN", "ND"], 1)) 
+f5 = ((['N', 'D'], 0.5107142857142857), (['N', 'ND'], 0.48928571428571427),
+      (['NN', 'D'], 0.014285714285714285), (['NN', 'ND'], 0.9857142857142858))
+f6 = ((['D'], 0.1632142857142857), (['ND'], 0.8367857142857142))
+#   FIDO HOWLS
+f7 = ((["S", "M", "D", "H"], 0.99), (["S", "M", "D", "NH"], 0.01),
+      (["S", "M", "ND", "H"], 0.9), (["S", "M", "ND", "NH"], 0.1),
+      (["S", "NM", "D", "H"], 0.75), (["S", "NM", "D", "NH"], 0.25),
+      (["S", "NM", "ND", "H"], 0.5), (["S", "NM", "ND", "NH"], 0.5),
+      (["NS", "M", "D", "H"], 0.65), (["NS", "M", "D", "NH"], 0.35),
+      (["NS", "M", "ND", "H"], 0.4), (["NS", "M", "ND", "NH"], 0.6),
+      (["NS", "NM", "D", "H"], 0.2), (["NS", "NM", "D", "NH"], 0.8),
+      (["NS", "NM", "ND", "H"], 0), (["NS", "NM", "ND", "NH"], 1))
+f8 = ((['H', 'S', 'M'], 0.9146892857142856), (['S', 'NH', 'M'], 0.0853107142857143),
+      (['H', 'S', 'NM'], 0.5408035714285714), (['S', 'NH', 'NM'], 0.45919642857142856),
+      (['H', 'NS', 'M'], 0.44080357142857146), (['NS', 'NH', 'M'], 0.5591964285714285),
+      (['H', 'NS', 'NM'], 0.03264285714285714), (['NS', 'NH', 'NM'], 0.9673571428571428))
+f9 = ((['H', 'S'], 0.5541566326530611), (['S', 'NH'], 0.4458433673469388),
+      (['H', 'NS'], 0.047220025510204086), (['NS', 'NH'], 0.9527799744897958))
+f10 = ((['H'], 0.07256685586734693), (['NH'], 0.9274331441326529))
+\end{lstlisting}
+Thus, there's only a $7.26\%$ chance that Fido will howl.
+\newpage
+\textbf{Q4c)} We now need to solve for FS, given FH = 1 (Fido is howling) and FM = 1. Thus we get the factors:
+\begin{align*}
+& f_1(FM = 1) = P(FM = 1) = 1 \\ 
+& f_2(NA) = P(NA) \\
+& f_3(NDG, FM = 1, NA) = P(NDG | FM = 1, NA) \\
+& f_4(NDG, NA) = f_4(NDG, FM = 1, NA)f_1(FM = 1)  \\
+& f_5(NDG) = \sum_{NA} f_5(NDG, NA)f_1(NA) \\
+& f_6(FS, NDG) = P(FS | FH = 1, FM = 1, NDG) \\
+& f_7(FS) = \sum_{NDG} f_7(FS, NDG)f_6(NDG)  \\
+\end{align*}
+Plugging this into our code gives us the following answers (note we only normalize at the end):
+\begin{lstlisting}
+#   FULL MOON
+f1 = (([], 0.03571428571428571))
+#   NEIGHBOUR IS AWAY
+f2 = ((["N"], 0.3), (["NN"], 0.7))
+#   NEIGHBOURS DOG IS HOWLING
+f3 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
+f4 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
+f5 = ((['D'], 0.52), (['ND'], 0.48))
+#   FIDO SICK
+f6 = ((['S', 'D'], 0.99), (['S', 'ND'], 0.9), 
+	  (['NS', 'D'], 0.65), (['NS', 'ND'], 0.4))
+f7 = ((['S'], 0.6411159263271939), (['NS'], 0.35888407367280606))
+\end{lstlisting}
+Thus there is a $64.11\%$ chance that Fido is sick.
+\newpage
+\textbf{Q4d)} We now need to solve for FS, given FH = 1 (Fido is howling) and FM = 1, FB = 1. Thus we get the factors:
+\begin{align*}
+& f_1(FM = 1) = P(FM = 1) = 1 \\ 
+& f_2(NA) = P(NA) \\
+& f_3(NDG, FM = 1, NA) = P(NDG | FM = 1, NA) \\
+& f_4(NDG, NA) = f_4(NDG, FM = 1, NA)f_1(FM = 1)  \\
+& f_5(NDG) = \sum_{NA} f_5(NDG, NA)f_1(NA) \\
+& f_6(FS, NDG) = P(FS | FH = 1, FM = 1, NDG) \\
+& f_7(FS) = \sum_{NDG} f_7(FS, NDG)f_6(NDG)  \\
+& f_8(FS) = P(FS |FB = 1) \\
+& f_9(FS) = f_8*f_7
+\end{align*}
+Plugging this into our code gives us the following answers (note we only normalize at the end):
+\begin{lstlisting}
+#   FULL MOON
+f1 = (([], 0.03571428571428571))
+#   NEIGHBOUR IS AWAY
+f2 = ((["N"], 0.3), (["NN"], 0.7))
+#   NEIGHBOURS DOG IS HOWLING
+f3 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
+f4 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
+f5 = ((['D'], 0.52), (['ND'], 0.48))
+#   FIDO SICK
+f6 = ((['S', 'D'], 0.99), (['S', 'ND'], 0.9), 
+	  (['NS', 'D'], 0.65), (['NS', 'ND'], 0.4))
+f7 = ((['S'], 0.9468000000000001), (['NS'], 0.53))
+f_8 = ((['S'], 0.6), (['NS'], 0.1))
+f_9 = ((['S'], 0.914664777484382), (['NS'], 0.08533522251561795))
+\end{lstlisting}
+Thus there is a $91.47\%$ chance that Fido is sick.
+\newpage
+\textbf{Q4e)} We now need to solve for FS, given FH = 1 (Fido is howling) and FM = 1, FB = 1, NA = 1. Thus we get the factors:
+\begin{align*}
+& f_1(FM = 1) = P(FM = 1) = 1 \\ 
+& f_2(NA = 1) = P(NA = 1) \\
+& f_3(NDG, FM = 1, NA) = P(NDG | FM = 1, NA) \\
+& f_4(NDG) = f_4(NDG, FM = 1, NA = 1)  \\
+& f_6(FS, NDG) = P(FS | FH = 1, FM = 1, NDG) \\
+& f_7(FS) = \sum_{NDG} f_7(FS, NDG)f_6(NDG)  \\
+& f_8(FS) = P(FS |FB = 1) \\
+& f_9(FS) = f_8*f_7
+\end{align*}
+Plugging this into our code gives us the following answers (note we only normalize at the end):
+\begin{lstlisting}
+#   FULL MOON
+f1 = (([], 0.03571428571428571))
+#   NEIGHBOUR IS AWAY
+f2 = ((["N"], 0.3), (["NN"], 0.7))
+#   NEIGHBOURS DOG IS HOWLING
+f3 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
+f4 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
+f5 = ((['D'], 0.52), (['ND'], 0.48))
+#   FIDO SICK
+f6 = ((['S', 'D'], 0.99), (['S', 'ND'], 0.9), 
+	  (['NS', 'D'], 0.65), (['NS', 'ND'], 0.4))
+f7 = ((['S'], 0.9468000000000001), (['NS'], 0.53))
+f_8 = ((['S'], 0.6), (['NS'], 0.1))
+f_9 = ((['S'], 0.914664777484382), (['NS'], 0.08533522251561795))
+\end{lstlisting}
+Thus there is a $91.47\%$ chance that Fido is sick.
+\newpage
+\textbf{Q5a)} Kate needs to provide the probabilites between each state $P(S_T | S_{T-1})$. Kate will also need to provide the observation model, which for any observation $num \in \{1,2,3,4,5\}$ is $P(O^{num}_T | S_T)$.\\\\
+\textbf{Q5b)} We assume that each observation from time T, is independent of everything given state T. We also assume that each state is independent is independent of everything given the state before it. \\\\
+\textbf{Q5c)} Given so many sensors, its possible that some of our observations are inaccurate and wont as useful for predictions. This is likely due to over fitting, which can happen when we over train on the training data (having so many observations).
 \end{titlepage}
 \end{document}

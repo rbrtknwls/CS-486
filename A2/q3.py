@@ -69,8 +69,23 @@ def sumout(factor, variable):
     return Factor(updatedTerms)
 
 def inference(factorList, queryVarible, orderedListOfHiddenVariables, evidenceList):
+    newFactorList = []
     for V in evidenceList:
-        print(V)
+        
+        for factor in factorList:
+
+            if V in factor.getListOfVariables():
+                if len(V) == 1:
+                    newFactorList.append(restrict(factor, V, True))
+                else:
+                    newFactorList.append(restrict(factor, V, False))
+            else:
+                newFactorList.append(factor)
+
+        factorList = []
+
+        for factor in newFactorList:
+            factorList.append(factor)
 
     for currentVar in orderedListOfHiddenVariables:
         f1 = factorList[0]
@@ -78,6 +93,7 @@ def inference(factorList, queryVarible, orderedListOfHiddenVariables, evidenceLi
 
         newFactorList = []
         for factor in factorList:
+
             if currentVar in factor.getListOfVariables():
                 if len(factor.getListOfVariables()) == 2:
                     f1 = factor
@@ -123,11 +139,6 @@ a3values = ((["M", "N", "D"], 0.8), (["M", "N", "ND"], 0.2),
             (["NM", "N", "D"], 0.5), (["NM", "N", "ND"], 0.5),
             (["NM", "NN", "D"], 0), (["NM", "NN", "ND"], 1))
 
-FM = Factor(a1values)
-NA = Factor(a2values)
-NDG = Factor(a3values)
-NDG = inference([FM, NA, NDG], "D", ["M", "N"], [])
-
 #   FIDO IS SICK
 a4values = ((["S"], 0.05), (["NS"], 0.95))
 #   FIDO HOWLS
@@ -139,10 +150,48 @@ a5values = ((["S", "M", "D", "H"], 0.99), (["S", "M", "D", "NH"], 0.01),
             (["NS", "M", "ND", "H"], 0.4), (["NS", "M", "ND", "NH"], 0.6),
             (["NS", "NM", "D", "H"], 0.2), (["NS", "NM", "D", "NH"], 0.8),
             (["NS", "NM", "ND", "H"], 0), (["NS", "NM", "ND", "NH"], 1))
+#   FOOD BOWL
+a6values = ((["S", "B"], 0.6), (["S", "NB"], 0.4),
+            (["NS", "B"], 0.1), (["NS", "NB"], 0.9))
 
+# ========================= Q2B ============================
 FS = Factor(a4values)
 FH = Factor(a5values)
+FM = Factor(a1values)
+NA = Factor(a2values)
+NDG = Factor(a3values)
 
+NDG = inference([FM, NA, NDG], "D", ["M", "N"], [])
 FH = inference([FH, FS, FM, NDG], "H", ["D", "M", "S"], [])
-print(normalize(FH).getAllTerms())
+# ========================= Q2C ============================
+FS = Factor(a4values)
+FH = Factor(a5values)
+FM = Factor(a1values)
+NA = Factor(a2values)
+NDG = Factor(a3values)
 
+NDG = inference([NA, NDG], "D", ["N"], ["M"])
+FS = inference([FH, NDG], "S", ["D"], ["M", "H"])
+
+
+# ========================= Q2D ============================
+FB = Factor(a6values)
+FB = inference([FB], "S", [], ["B"])
+
+# ========================= Q2E ============================
+FS = Factor(a4values)
+FH = Factor(a5values)
+FM = Factor(a1values)
+NA = Factor(a2values)
+NDG = Factor(a3values)
+print("A")
+NDG = inference([NDG], "D", [], ["M", "N"])
+print(NDG.getAllTerms())
+FS = inference([FH, NDG], "S", ["D"], ["M", "H"])
+print(FS.getAllTerms())
+
+FB = Factor(a6values)
+FB = inference([FB], "S", [], ["B"])
+print(FB.getAllTerms())
+print("B")
+print(normalize(multiply(FB, FS)).getAllTerms())
