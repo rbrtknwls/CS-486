@@ -260,35 +260,8 @@ Thus, there's only a $7.26\%$ chance that Fido will howl.
 & f_5(NDG) = \sum_{NA} f_5(NDG, NA)f_1(NA) \\
 & f_6(FS, NDG) = P(FS | FH = 1, FM = 1, NDG) \\
 & f_7(FS) = \sum_{NDG} f_7(FS, NDG)f_6(NDG)  \\
-\end{align*}
-Plugging this into our code gives us the following answers (note we only normalize at the end):
-\begin{lstlisting}
-#   FULL MOON
-f1 = (([], 0.03571428571428571))
-#   NEIGHBOUR IS AWAY
-f2 = ((["N"], 0.3), (["NN"], 0.7))
-#   NEIGHBOURS DOG IS HOWLING
-f3 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
-f4 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
-f5 = ((['D'], 0.52), (['ND'], 0.48))
-#   FIDO SICK
-f6 = ((['S', 'D'], 0.99), (['S', 'ND'], 0.9), 
-	  (['NS', 'D'], 0.65), (['NS', 'ND'], 0.4))
-f7 = ((['S'], 0.6411159263271939), (['NS'], 0.35888407367280606))
-\end{lstlisting}
-Thus there is a $64.11\%$ chance that Fido is sick.
-\newpage
-\textbf{Q4d)} We now need to solve for FS, given FH = 1 (Fido is howling) and FM = 1, FB = 1. Thus we get the factors:
-\begin{align*}
-& f_1(FM = 1) = P(FM = 1) = 1 \\ 
-& f_2(NA) = P(NA) \\
-& f_3(NDG, FM = 1, NA) = P(NDG | FM = 1, NA) \\
-& f_4(NDG, NA) = f_4(NDG, FM = 1, NA)f_1(FM = 1)  \\
-& f_5(NDG) = \sum_{NA} f_5(NDG, NA)f_1(NA) \\
-& f_6(FS, NDG) = P(FS | FH = 1, FM = 1, NDG) \\
-& f_7(FS) = \sum_{NDG} f_7(FS, NDG)f_6(NDG)  \\
-& f_8(FS) = P(FS |FB = 1) \\
-& f_9(FS) = f_8*f_7
+& f_8(FS) = P(FS) \\
+& f_9(FS) = f_7(FS)f_8(FS)
 \end{align*}
 Plugging this into our code gives us the following answers (note we only normalize at the end):
 \begin{lstlisting}
@@ -304,10 +277,43 @@ f5 = ((['D'], 0.52), (['ND'], 0.48))
 f6 = ((['S', 'D'], 0.99), (['S', 'ND'], 0.9), 
 	  (['NS', 'D'], 0.65), (['NS', 'ND'], 0.4))
 f7 = ((['S'], 0.9468000000000001), (['NS'], 0.53))
-f_8 = ((['S'], 0.6), (['NS'], 0.1))
-f_9 = ((['S'], 0.914664777484382), (['NS'], 0.08533522251561795))
+f8 = ((['S'], 0.05), (['NS'], 0.95))
+f9 = ((['S'], 0.0859414712076), (['NS'], 0.914058528792))
 \end{lstlisting}
-Thus there is a $91.47\%$ chance that Fido is sick.
+Thus there is a $8.59\%$ chance that Fido is sick.
+\newpage
+\textbf{Q4d)} We now need to solve for FS, given FH = 1 (Fido is howling) and FM = 1, FB = 1. Thus we get the factors:
+\begin{align*}
+& f_1(FM = 1) = P(FM = 1) = 1 \\ 
+& f_2(NA) = P(NA) \\
+& f_3(NDG, FM = 1, NA) = P(NDG | FM = 1, NA) \\
+& f_4(NDG, NA) = f_4(NDG, FM = 1, NA)f_1(FM = 1)  \\
+& f_5(NDG) = \sum_{NA} f_5(NDG, NA)f_1(NA) \\
+& f_6(FS, NDG) = P(FS | FH = 1, FM = 1, NDG) \\
+& f_7(FS) = \sum_{NDG} f_7(FS, NDG)f_6(NDG)  \\
+& f_8(FS) = P(FS) \\
+& f_9(FS) = P(FS |FB = 1) \\
+& f_10(FS) = f_7(FS)f_8(FS)f_9(FS)
+\end{align*}
+Plugging this into our code gives us the following answers (note we only normalize at the end):
+\begin{lstlisting}
+#   FULL MOON
+f1 = (([], 0.03571428571428571))
+#   NEIGHBOUR IS AWAY
+f2 = ((["N"], 0.3), (["NN"], 0.7))
+#   NEIGHBOURS DOG IS HOWLING
+f3 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
+f4 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
+f5 = ((['D'], 0.52), (['ND'], 0.48))
+#   FIDO SICK
+f6 = ((['S', 'D'], 0.99), (['S', 'ND'], 0.9), 
+	  (['NS', 'D'], 0.65), (['NS', 'ND'], 0.4))
+f7 = ((['S'], 0.9468000000000001), (['NS'], 0.53))
+f8 = ((['S'], 0.05), (['NS'], 0.95))
+f9 = ((['S'], 0.6), (['NS'], 0.1))
+f10 = ((['S'], 0.360667394672), (['NS'], 0.639332605328))
+\end{lstlisting}
+Thus there is a $34.76\%$ chance that Fido is sick.
 \newpage
 \textbf{Q4e)} We now need to solve for FS, given FH = 1 (Fido is howling) and FM = 1, FB = 1, NA = 1. Thus we get the factors:
 \begin{align*}
@@ -317,7 +323,8 @@ Thus there is a $91.47\%$ chance that Fido is sick.
 & f_4(FS, NDG) = P(FS | FH = 1, FM = 1, NDG) \\
 & f_5(FS) = \sum_{NDG} f_7(FS, NDG)f_6(NDG)  \\
 & f_6(FS) = P(FS |FB = 1) \\
-& f_7(FS) = f_8*f_7
+& f_7(FS) = P(FS) \\
+& f_8(FS) = f_5(FS)f_6(FS)f_7(FS)
 \end{align*}
 Plugging this into our code gives us the following answers (note we only normalize at the end):
 \begin{lstlisting}
@@ -331,14 +338,15 @@ f3 = ((['D'], 0.8), ('ND'], 0.2))
 f4 = ((['S', 'D'], 0.99), (['S', 'ND'], 0.9), 
 	  (['NS', 'D'], 0.65), (['NS', 'ND'], 0.4))
 f5 = ((['S'], 0.972), (['NS'], 0.576))
-f_6 = ((['S'], 0.6), (['NS'], 0.1))
-f_7 = ((['S'], 0.910112359551), (['NS'], 0.0898876404494))
+f6 = ((['S'], 0.6), (['NS'], 0.1))
+f7 = ((['S'], 0.05), (['NS'], 0.95))
+f8 = ((['S'], 0.375152687895), (['NS'], 0.624847312105))
 \end{lstlisting}
 Thus there is a $91.01\%$ chance that Fido is sick.
 \newpage
 \textbf{Q5a)} Kate needs to provide the probabilites between each state $P(S_T | S_{T-1})$. Kate will also need to provide the observation model, which for any observation $num \in \{1,2,3,4,5\}$ is $P(O^{num}_T | S_T)$.\\\\
 \textbf{Q5b)} We assume that each observation from time T, is independent of everything given state T. We also assume that each state is independent is independent of everything given the state before it. \\\\
-\textbf{Q5c)} Given so many sensors, its possible that some of our observations are inaccurate and wont as useful for predictions. This is likely due to over fitting, which can happen when we over train on the training data (having so many observations).
+\textbf{Q5c)} Given so many sensors, its possible that some of our observations are inaccurate and wont as useful for predictions. This could be due to the fact that this problem is stochastic and not deterministic, so sensor readings can be inaccurate. This could also be due to over fitting, which can happen when we over train on the training data (having so many observations). 
 \newpage
 Below is the code used to solve Q3 and Q4:
 \begin{lstlisting}
