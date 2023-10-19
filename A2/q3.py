@@ -71,7 +71,7 @@ def sumout(factor, variable):
 def inference(factorList, queryVarible, orderedListOfHiddenVariables, evidenceList):
     newFactorList = []
     for V in evidenceList:
-        
+
         for factor in factorList:
 
             if V in factor.getListOfVariables():

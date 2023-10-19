@@ -313,34 +313,232 @@ Thus there is a $91.47\%$ chance that Fido is sick.
 \begin{align*}
 & f_1(FM = 1) = P(FM = 1) = 1 \\ 
 & f_2(NA = 1) = P(NA = 1) \\
-& f_3(NDG, FM = 1, NA) = P(NDG | FM = 1, NA) \\
-& f_4(NDG) = f_4(NDG, FM = 1, NA = 1)  \\
-& f_6(FS, NDG) = P(FS | FH = 1, FM = 1, NDG) \\
-& f_7(FS) = \sum_{NDG} f_7(FS, NDG)f_6(NDG)  \\
-& f_8(FS) = P(FS |FB = 1) \\
-& f_9(FS) = f_8*f_7
+& f_3(NDG) = P(NDG | FM = 1, NA = 1) \\
+& f_4(FS, NDG) = P(FS | FH = 1, FM = 1, NDG) \\
+& f_5(FS) = \sum_{NDG} f_7(FS, NDG)f_6(NDG)  \\
+& f_6(FS) = P(FS |FB = 1) \\
+& f_7(FS) = f_8*f_7
 \end{align*}
 Plugging this into our code gives us the following answers (note we only normalize at the end):
 \begin{lstlisting}
 #   FULL MOON
 f1 = (([], 0.03571428571428571))
 #   NEIGHBOUR IS AWAY
-f2 = ((["N"], 0.3), (["NN"], 0.7))
+f2 = ((["N"], 0.3))
 #   NEIGHBOURS DOG IS HOWLING
-f3 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
-f4 = ((['N', 'D'], 0.8), (['N', 'ND'], 0.2), (['NN', 'D'], 0.4), (['NN', 'ND'], 0.6))
-f5 = ((['D'], 0.52), (['ND'], 0.48))
+f3 = ((['D'], 0.8), ('ND'], 0.2))
 #   FIDO SICK
-f6 = ((['S', 'D'], 0.99), (['S', 'ND'], 0.9), 
+f4 = ((['S', 'D'], 0.99), (['S', 'ND'], 0.9), 
 	  (['NS', 'D'], 0.65), (['NS', 'ND'], 0.4))
-f7 = ((['S'], 0.9468000000000001), (['NS'], 0.53))
-f_8 = ((['S'], 0.6), (['NS'], 0.1))
-f_9 = ((['S'], 0.914664777484382), (['NS'], 0.08533522251561795))
+f5 = ((['S'], 0.972), (['NS'], 0.576))
+f_6 = ((['S'], 0.6), (['NS'], 0.1))
+f_7 = ((['S'], 0.910112359551), (['NS'], 0.0898876404494))
 \end{lstlisting}
-Thus there is a $91.47\%$ chance that Fido is sick.
+Thus there is a $91.01\%$ chance that Fido is sick.
 \newpage
 \textbf{Q5a)} Kate needs to provide the probabilites between each state $P(S_T | S_{T-1})$. Kate will also need to provide the observation model, which for any observation $num \in \{1,2,3,4,5\}$ is $P(O^{num}_T | S_T)$.\\\\
 \textbf{Q5b)} We assume that each observation from time T, is independent of everything given state T. We also assume that each state is independent is independent of everything given the state before it. \\\\
 \textbf{Q5c)} Given so many sensors, its possible that some of our observations are inaccurate and wont as useful for predictions. This is likely due to over fitting, which can happen when we over train on the training data (having so many observations).
+\newpage
+Below is the code used to solve Q3 and Q4:
+\begin{lstlisting}
+import numpy as np
+
+
+class Factor:
+    def __init__(self, setOfFactors):
+        self.SetOfValues = setOfFactors
+
+    def getAllTerms(self):
+        return self.SetOfValues
+    def getSizeOfFactor(self):
+        return len(self.SetOfValues[0][0])
+    def getListOfVariables(self):
+        allVariables = set()
+        for entry in self.SetOfValues:
+            for variable in entry[0]:
+                allVariables.add(variable)
+        return allVariables
+
+    def getVariable(self, variable):
+        numberOfRelivent = []
+        for factor in self.SetOfValues:
+            listOfVals = set(factor[0])
+            if variable in listOfVals:
+                numberOfRelivent += [factor]
+        return numberOfRelivent
+
+def restrict(factor, variable, value):
+    if not value:
+        variable = "N" + variable
+
+    terms = factor.getVariable(variable)
+    updatedTerms = []
+    for term in terms:
+        factors = term[0]
+        probability = term[1]
+        newfactor = []
+        for factor in factors:
+            if factor != variable:
+                newfactor += [factor]
+
+        updatedTerms.append((newfactor, probability))
+
+    return Factor(updatedTerms)
+
+
+def multiply(factor1, factor2):
+
+    newTerms = []
+    largestTerm = max(len(factor1.getAllTerms()[0][0]), len(factor2.getAllTerms()[0][0]))
+    for term1 in factor1.getAllTerms():
+        for term2 in factor2.getAllTerms():
+            combine = set(term1[0]).union(set(term2[0]))
+            if len(combine) == largestTerm:
+                newTerms.append((list(combine), term1[1]*term2[1]))
+
+    return Factor(newTerms)
+
+
+def sumout(factor, variable):
+    positiveTerms = restrict(factor, variable, True)
+    negativeTerms = restrict(factor, variable, False)
+
+    updatedTerms = []
+    for posTerm in positiveTerms.getAllTerms():
+        for negTerm in negativeTerms.getAllTerms():
+            if sorted(posTerm[0]) == sorted(negTerm[0]):
+                updatedTerms.append((posTerm[0], negTerm[1]+posTerm[1]))
+
+    return Factor(updatedTerms)
+
+def inference(factorList, queryVarible, orderedListOfHiddenVariables, evidenceList):
+    newFactorList = []
+    for V in evidenceList:
+        
+        for factor in factorList:
+
+            if V in factor.getListOfVariables():
+                if len(V) == 1:
+                    newFactorList.append(restrict(factor, V, True))
+                else:
+                    newFactorList.append(restrict(factor, V, False))
+            else:
+                newFactorList.append(factor)
+
+        factorList = []
+
+        for factor in newFactorList:
+            factorList.append(factor)
+
+    for currentVar in orderedListOfHiddenVariables:
+        f1 = factorList[0]
+        f2 = factorList[0]
+
+        newFactorList = []
+        for factor in factorList:
+
+            if currentVar in factor.getListOfVariables():
+                if len(factor.getListOfVariables()) == 2:
+                    f1 = factor
+                else:
+                    f2 = factor
+            else:
+                newFactorList.append(factor)
+
+        f3 = multiply(f1, f2)
+        f3 = sumout(f3, currentVar)
+        newFactorList.append(f3)
+        factorList = newFactorList
+
+    return factorList[0]
+
+def normalize(factor):
+    sum = factor.getAllTerms()[0][1] + factor.getAllTerms()[1][1]
+
+    normalized1 = (factor.getAllTerms()[0][0], factor.getAllTerms()[0][1] / sum)
+    normalized2 = (factor.getAllTerms()[1][0], factor.getAllTerms()[1][1] / sum)
+
+    return Factor([normalized1, normalized2])
+
+# Values for validation
+f1values = ((["A", "B"], 0.9), (["A", "NB"], 0.1), (["NA", "B"], 0.4), (["NA", "NB"], 0.6))
+f2values = ((["B", "C"], 0.7), (["B", "NC"], 0.3), (["NB", "C"], 0.8), (["NB", "NC"], 0.2))
+
+g1values = ((["A"], 0.9), (["NA"], 0.1))
+g2values = ((["A", "B"], 0.9), (["A", "NB"], 0.1), (["NA", "B"], 0.4), (["NA", "NB"], 0.6))
+g3values = ((["B", "C"], 0.7), (["B", "NC"], 0.3), (["NB", "C"], 0.2), (["NB", "NC"], 0.8))
+
+f1 = Factor(g1values)
+f2 = Factor(g2values)
+f3 = Factor(g3values)
+
+#   FULL MOON
+a1values = ((["M"], 1 / 28), (["NM"], 27 / 28))
+#   NEIGHBOUR IS AWAY
+a2values = ((["N"], 0.3), (["NN"], 0.7))
+#   NEIGHBOURS DOG IS HOWLING
+a3values = ((["M", "N", "D"], 0.8), (["M", "N", "ND"], 0.2),
+            (["M", "NN", "D"], 0.4), (["M", "NN", "ND"], 0.6),
+            (["NM", "N", "D"], 0.5), (["NM", "N", "ND"], 0.5),
+            (["NM", "NN", "D"], 0), (["NM", "NN", "ND"], 1))
+
+#   FIDO IS SICK
+a4values = ((["S"], 0.05), (["NS"], 0.95))
+#   FIDO HOWLS
+a5values = ((["S", "M", "D", "H"], 0.99), (["S", "M", "D", "NH"], 0.01),
+            (["S", "M", "ND", "H"], 0.9), (["S", "M", "ND", "NH"], 0.1),
+            (["S", "NM", "D", "H"], 0.75), (["S", "NM", "D", "NH"], 0.25),
+            (["S", "NM", "ND", "H"], 0.5), (["S", "NM", "ND", "NH"], 0.5),
+            (["NS", "M", "D", "H"], 0.65), (["NS", "M", "D", "NH"], 0.35),
+            (["NS", "M", "ND", "H"], 0.4), (["NS", "M", "ND", "NH"], 0.6),
+            (["NS", "NM", "D", "H"], 0.2), (["NS", "NM", "D", "NH"], 0.8),
+            (["NS", "NM", "ND", "H"], 0), (["NS", "NM", "ND", "NH"], 1))
+#   FOOD BOWL
+a6values = ((["S", "B"], 0.6), (["S", "NB"], 0.4),
+            (["NS", "B"], 0.1), (["NS", "NB"], 0.9))
+
+# ========================= Q2B ============================
+FS = Factor(a4values)
+FH = Factor(a5values)
+FM = Factor(a1values)
+NA = Factor(a2values)
+NDG = Factor(a3values)
+
+NDG = inference([FM, NA, NDG], "D", ["M", "N"], [])
+FH = inference([FH, FS, FM, NDG], "H", ["D", "M", "S"], [])
+# ========================= Q2C ============================
+FS = Factor(a4values)
+FH = Factor(a5values)
+FM = Factor(a1values)
+NA = Factor(a2values)
+NDG = Factor(a3values)
+
+NDG = inference([NA, NDG], "D", ["N"], ["M"])
+FS = inference([FH, NDG], "S", ["D"], ["M", "H"])
+
+
+# ========================= Q2D ============================
+FB = Factor(a6values)
+FB = inference([FB], "S", [], ["B"])
+
+# ========================= Q2E ============================
+FS = Factor(a4values)
+FH = Factor(a5values)
+FM = Factor(a1values)
+NA = Factor(a2values)
+NDG = Factor(a3values)
+print("A")
+NDG = inference([NDG], "D", [], ["M", "N"])
+print(NDG.getAllTerms())
+FS = inference([FH, NDG], "S", ["D"], ["M", "H"])
+print(FS.getAllTerms())
+
+FB = Factor(a6values)
+FB = inference([FB], "S", [], ["B"])
+print(FB.getAllTerms())
+print("B")
+print(normalize(multiply(FB, FS)).getAllTerms())
+\end{lstlisting}
 \end{titlepage}
 \end{document}
