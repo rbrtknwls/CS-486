@@ -51,14 +51,46 @@
 University of Waterloo \par
 CS 486 \par
 \vspace{0.05cm}
-r2knowle: 2023-10-1
+r2knowle: 2023-11-11
 \vspace{0.2cm}
 
 {\huge Assignment \# 3 \par}
 \hrule
 
 \vspace{0.5cm}
-\textbf{Q1.1)} 
+\textbf{Q1.1)} To begin we are going to assume that eating soups on days 1, 2 and 3 are independent of each other. Let $\theta_x$ represent the true probability that we have soup on day $x$ where $x \in (1,2,3)$. We will also let $S_x$ and $N_x$ represent the number of observations where we had and didnt have soup (respectively on day x). Thus in class we get the following derivation for each parameter:
+\begin{align*}
+\theta_1 &= \frac{S_1 + 1}{N_1 + S_1 + 2} \\
+&= \frac{3 + 1}{2 + 3 + 2} \\
+&= \frac{4}{7}\\
+\theta_2 &= \frac{S_2 + 1}{N_2 + S_2 + 2} \\
+&= \frac{2 + 1}{3 + 2 + 2} \\
+&= \frac{3}{7}\\
+\theta_3 &= \frac{S_3 + 1}{N_3 + S_3 + 2} \\
+&= \frac{3 + 1}{2 + 3 + 2} \\
+&= \frac{4}{7}
+\end{align*}
+The probability we enjoy of meal $d$ is given by:
+\[P(d|h_{\theta_1, \theta_2, \theta_3}) = \theta_1^{S_1}(1-\theta_1)^{N_1}\theta_2^{S_2}(1-\theta_2)^{N_2}\theta_3^{S_3}(1-\theta_3)^{N_3}\]
+
+\textbf{Q1.2)} To begin we are going to assume that eating soups on days 1, 2 and 3 are independent of each other. Let $\theta_x$ represent the true probability that we have soup on day $x$ where $x \in (1,2,3)$. We will also let $S_x$ and $N_x$ represent the number of observations where we had and didnt have soup (respectively on day x). Therefore the probability we enjoy the meal $d$ is given by:
+\begin{align*}
+P(d|h_{\theta_1, \theta_2, \theta_3}) &= \theta_1^{S_1}(1-\theta_1)^{N_1}\theta_2^{S_2}(1-\theta_2)^{N_2}\theta_3^{S_3}(1-\theta_3)^{N_3}
+\end{align*}
+Taking the log likelihood of this we get:
+\begin{align*}
+&= \log \left(\theta_1^{S_1}(1-\theta_1)^{N_1}\theta_2^{S_2}(1-\theta_2)^{N_2}\theta_3^{S_3}(1-\theta_3)^{N_3} \right)\\
+&= S_1\log(\theta_1) + N_1\log(1-\theta_1)+ S_2\log(\theta_2) + N_2\log(1-\theta_2) + S_3\log(\theta_3) + N_3\log(1-\theta_3)
+\end{align*}
+We will take the derivative of each of the paramters ($\theta_1, \theta_2, \theta_3$) to find the values for which they are maximized. At the end we will apply Lapache smoothing as taught in class. Starting with $\theta_1$ we get:\\
+\begin{align*}
+0 = \frac{S_1}{\theta_1} + \frac{N_1}{1-\theta_1} \\
+0 = \frac{S_1(1-\theta)}{\theta_1(1-\theta_1)} + \frac{N_1\theta_1}{\theta_1(1-\theta_1)}\\
+0 = \frac{S_1-S_1\theta_1 + N_1\theta}{\theta_1(1-\theta_1)} \\
+0 = S_1-S_1\theta_1 + N_1\theta_1\\
+-S_1 = (-S_1+N)\theta_1\\
+\theta_1 = \frac{-S_1}{(-S_1+N)}
+\end{align*}
 \textbf{Q1.2)} If we only look at day 1 we get the following observations:\\\\
 \begin{tabular}{ |c||c|c| } 
 \hline
