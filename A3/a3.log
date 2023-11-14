@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.12)  11 NOV 2023 21:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.12)  14 NOV 2023 16:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -781,58 +781,67 @@ Package caption Info: End \AtBeginDocument code.
 (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 61.
+Underfull \hbox (badness 10000) in paragraph at lines 61--62
 
+ []
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 80.
 
 (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 61.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 80.
 
 
 (C:\Users\robde\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 84--86
-
- []
-
 [1
 
-{C:/Users/robde/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 93--104
-
- []
-
-[2] [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 249--250
+{C:/Users/robde/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 131--135
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 249--250
+Underfull \hbox (badness 10000) in paragraph at lines 131--135
 
  []
 
 
-Overfull \hbox (12.32332pt too wide) in paragraph at lines 275--276
+Underfull \hbox (badness 10000) in paragraph at lines 145--148
+
+ []
+
+[3] [4] [5] [6] [7]
+Underfull \hbox (badness 10000) in paragraph at lines 306--307
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 306--307
+
+ []
+
+
+Overfull \hbox (12.32332pt too wide) in paragraph at lines 332--333
 [][] 
  []
 
-[5] [6]
+[8] [9]
 
 Package caption Warning: Unused \captionsetup[sub] on input line 19.
 See the caption package documentation for explanation.
 
 (a3.aux) ) 
 Here is how much of TeX's memory you used:
- 20097 strings out of 476331
- 411945 string characters out of 5787765
+ 20123 strings out of 476331
+ 412323 string characters out of 5787765
  1954660 words of memory out of 5000000
- 40206 multiletter control sequences out of 15000+600000
+ 40232 multiletter control sequences out of 15000+600000
  518004 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,9n,89p,488b,1937s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,10n,89p,427b,1943s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
 onts/cm/cmbx12.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/pu
 blic/amsfonts/cm/cmex10.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts
@@ -841,14 +850,14 @@ TeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/robde/AppData/Local/Prog
 rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/robde/AppData/Lo
 cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/robde/Ap
 pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/
-robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:
-/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.
-pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmtt9.pfb>
-Output written on a3.pdf (6 pages, 137836 bytes).
+robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:
+/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmsy8.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmtt9.pfb>
+Output written on a3.pdf (9 pages, 146373 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
+ 90 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -58,49 +58,106 @@ r2knowle: 2023-11-11
 \hrule
 
 \vspace{0.5cm}
-\textbf{Q1.1)} To begin we are going to assume that eating soups on days 1, 2 and 3 are independent of each other. Let $\theta_x$ represent the true probability that we have soup on day $x$ where $x \in (1,2,3)$. We will also let $S_x$ and $N_x$ represent the number of observations where we had and didnt have soup (respectively on day x). Thus in class we get the following derivation for each parameter:
-\begin{align*}
-\theta_1 &= \frac{S_1 + 1}{N_1 + S_1 + 2} \\
-&= \frac{3 + 1}{2 + 3 + 2} \\
-&= \frac{4}{7}\\
-\theta_2 &= \frac{S_2 + 1}{N_2 + S_2 + 2} \\
-&= \frac{2 + 1}{3 + 2 + 2} \\
-&= \frac{3}{7}\\
-\theta_3 &= \frac{S_3 + 1}{N_3 + S_3 + 2} \\
-&= \frac{3 + 1}{2 + 3 + 2} \\
-&= \frac{4}{7}
-\end{align*}
-The probability we enjoy of meal $d$ is given by:
-\[P(d|h_{\theta_1, \theta_2, \theta_3}) = \theta_1^{S_1}(1-\theta_1)^{N_1}\theta_2^{S_2}(1-\theta_2)^{N_2}\theta_3^{S_3}(1-\theta_3)^{N_3}\]
+\textbf{Q1.1)} To begin, we get the following diagram for the Naive Bayes Model based on the attributes of eating soup on days 1,2 and 3:\\
+\begin{center}
+\begin{tikzpicture}[
+  node distance=1cm and 2cm,
+  mynode/.style={draw,ellipse,text width=2cm,align=center}]
+\node[mynode,  fill={rgb,255:red,220; green,220; blue,220}] (en) {Enjoyed the Meal};
+\node[mynode, below left=of en] (s1) {Soup on day 1};
+\node[mynode, below=of en] (s2) {Soup on day 2};
+\node[mynode, below right=of en] (s3) {Soup on day 3};
 
-\textbf{Q1.2)} To begin we are going to assume that eating soups on days 1, 2 and 3 are independent of each other. Let $\theta_x$ represent the true probability that we have soup on day $x$ where $x \in (1,2,3)$. We will also let $S_x$ and $N_x$ represent the number of observations where we had and didnt have soup (respectively on day x). Therefore the probability we enjoy the meal $d$ is given by:
+
+\path[->,draw,thick]
+  (en) edge  (s1)
+  (en) edge  (s2)
+  (en) edge  (s3);
+ 
+\end{tikzpicture}
+\end{center}
+From this we can get the derive the following thetas:
 \begin{align*}
-P(d|h_{\theta_1, \theta_2, \theta_3}) &= \theta_1^{S_1}(1-\theta_1)^{N_1}\theta_2^{S_2}(1-\theta_2)^{N_2}\theta_3^{S_3}(1-\theta_3)^{N_3}
+\theta &= \text{P(C=True)} \\
+\theta_{1,1} &= \text{P(Soup on day 1 = True } |\text{ C = True)} \\
+\theta_{1,2} &= \text{P(Soup on day 1 = True } |\text{ C = False)} \\
+\theta_{2,1} &= \text{P(Soup on day 2 = True } |\text{ C = True)} \\
+\theta_{2,2} &= \text{P(Soup on day 2 = True } |\text{ C = False)} \\
+\theta_{3,1} &= \text{P(Soup on day 3 = True } |\text{ C = True)} \\
+\theta_{3,2} &= \text{P(Soup on day 3 = True } |\text{ C = False)} \\
 \end{align*}
-Taking the log likelihood of this we get:
+After applying Lapace smoothing we get the following values for theta:
 \begin{align*}
-&= \log \left(\theta_1^{S_1}(1-\theta_1)^{N_1}\theta_2^{S_2}(1-\theta_2)^{N_2}\theta_3^{S_3}(1-\theta_3)^{N_3} \right)\\
-&= S_1\log(\theta_1) + N_1\log(1-\theta_1)+ S_2\log(\theta_2) + N_2\log(1-\theta_2) + S_3\log(\theta_3) + N_3\log(1-\theta_3)
+\theta = \frac{2+1}{5+2} = \frac{3}{7} 
 \end{align*}
-We will take the derivative of each of the paramters ($\theta_1, \theta_2, \theta_3$) to find the values for which they are maximized. At the end we will apply Lapache smoothing as taught in class. Starting with $\theta_1$ we get:\\
-\begin{align*}
-0 = \frac{S_1}{\theta_1} + \frac{N_1}{1-\theta_1} \\
-0 = \frac{S_1(1-\theta)}{\theta_1(1-\theta_1)} + \frac{N_1\theta_1}{\theta_1(1-\theta_1)}\\
-0 = \frac{S_1-S_1\theta_1 + N_1\theta}{\theta_1(1-\theta_1)} \\
-0 = S_1-S_1\theta_1 + N_1\theta_1\\
--S_1 = (-S_1+N)\theta_1\\
-\theta_1 = \frac{-S_1}{(-S_1+N)}
-\end{align*}
-\textbf{Q1.2)} If we only look at day 1 we get the following observations:\\\\
-\begin{tabular}{ |c||c|c| } 
-\hline
-\text{ } & \text{Had soup on day 1} & \text{Didn't have soup on day 1} \\
-\hline
-\hline
-\text{Liked the meal} & 2 & 0 \\
-\text{Didn't like the meal} & 1 & 2\\
-\hline
+\begin{center}
+\begin{tabular}{ll}
+$\theta_{1,1} = \frac{2 + 1}{2 + 2} = \frac{3}{4}$  & $\theta_{1,2} = \frac{1+1}{3 + 2} = \frac{2}{5}$ \\\\
+$\theta_{2,1} = \frac{2 + 1}{2 + 2} = \frac{3}{4}$  & $\theta_{2,2} = \frac{0+1}{3 + 2} = \frac{1}{5}$ \\\\\
+$\theta_{3,1} = \frac{1 + 1}{2 + 2} = \frac{2}{4}$  & $\theta_{3,2} = \frac{2+1}{3 + 2} = \frac{3}{5}$ \\\\\
 \end{tabular}
+\end{center}
+\textbf{Q1.2)} To solve we have 2 sets of 2 probabilities. In the case of having soup on day 1 we have (note Dx represents soup on day x):
+\begin{align*}
+P(\text{Enjoy Meal}  |D_1, \neg D_2, \neg D)3) &= \alpha \times \theta \times \theta_{1,1} \times (1-\theta_{2,1}) \times (1-\theta_{3,1}) \\
+&= \frac{3}{7} \times \frac{3}{4} \times \frac{1}{4} \times \frac{1}{2} \\
+&= \frac{9}{224}
+\end{align*}
+\begin{align*}
+P(\text{Didnt Enjoy Meal}  |D_1, \neg D_2, \neg D)3) &= \alpha \times (1-\theta) \times \theta_{1,2} \times (1-\theta_{2,2}) \times (1-\theta_{3,2}) \\
+&= \frac{4}{7} \times \frac{2}{5} \times \frac{4}{5} \times \frac{2}{5} \\
+&= \frac{64}{875}
+\end{align*}
+In comparison, if we have soup on both days 1 and 2 we get the following probabilities:
+\begin{align*}
+P(\text{Enjoy Meal}  |D_1, D_2, \neg D)3) &= \alpha \times \theta \times \theta_{1,1} \times \theta_{2,1} \times (1-\theta_{3,1}) \\
+&= \frac{3}{7} \times \frac{3}{4} \times \frac{3}{4} \times \frac{1}{2} \\
+&= \frac{27}{224}
+\end{align*}
+\begin{align*}
+P(\text{Didnt Enjoy Meal}  |D_1, D_2, \neg D)3) &= \alpha \times (1-\theta) \times \theta_{1,2} \times \theta_{2,2} \times (1-\theta_{3,2}) \\
+&= \frac{4}{7} \times \frac{2}{5} \times \frac{1}{5} \times \frac{2}{5} \\
+&= \frac{16}{875}
+\end{align*}
+Therefore we can see that the probability Alex enjoys his meal goes up if he had soups on day 1 and 2, as well as his probability for not liking the meal also goes down. Therefore we can conclude he is more likely to like his meal is he has soups on both days 1 and 2.
+\newpage
+\textbf{Q2.1)} As taught in class we know the expected value is equal to:
+\[ \text{Expected Value} = \sum_s P(s)U(s) \]
+In our case we get that this is equivalent to:
+\begin{align*}
+\text{Expected Value} &= \sum^\infty_{i=1} \frac{1}{2^i}\times2^i \\
+&= \sum^\infty_{i=1} 1 \\
+&= \infty
+\end{align*}
+Thus showing the expected value of this game is infinite.\\\\
+\textbf{Q2.2)} If I could play the game regardless of how much I bid, I would always only pay $0$ as that would maximize my utility of winning, otherwise I would pay a maximum of $100$ :).\\\\
+\textbf{Q2.3)} Given this new utility function we get that the expected utility is:
+\begin{align*}
+\text{Expected Uility} &= \sum^\infty_{i=1} \frac{1}{2^i}\times(a\log_2(2^i) + b) \\
+&= a\sum^\infty_{i=1}(\frac{i}{2^i}) + b\sum^\infty_{i=1}(\frac{1}{2^i})\\
+&= a\sum^\infty_{i=1}(\frac{i}{2^i}) + b\sum^\infty_{i=1}(\frac{1}{2})^i
+\end{align*}
+Note that the right equation is equivalent to the geometric series with $x = \frac{1}{2}$ (starting at the second term) and so we get:
+\begin{align*}
+&= a\sum^\infty_{i=1}(\frac{i}{2^i}) + b (\frac{1}{1-\frac{1}{2}}-1) \\
+&= a \left(\frac{1}{2} + \frac{2}{4} + \frac{3}{8} + \frac{4}{16} + ... \right) + b \\
+&= 2a + b
+\end{align*}
+Thus we get that the expected utility from playing this game is equal to 2a + b.\\\\
+\textbf{Q2.4)} To begin we can get that our expected utility is:
+\[ \text{Expected Utility} = 2a + b \]
+Moreover the utility of money we get is equal to the money we earn - the price we needed to bid. Lets assume that our bid is equal to our entire wealth. Thus we get:
+\begin{align*}
+ a\log_2(k-x)+b &= 2a + b\\
+ \log_2(k-x) &= 2\\
+ k-x &= 4\\
+ -x &= 4-k\\
+ x &= k-4\\
+\end{align*}
+Therefore we have that x = k-4.
+\newpage
+\textbf{Q3.1a)} Before we determine the optimal policy give a specific risk probability, we will first determine the value function for each action. Starting with action a we have the following value functions for each state:
+
 \newpage
 \textbf{Q4.1)} Below is the code used to produce the decision tree, as well as get the number of values predicted correctly vs incorrectly:
 \begin{lstlisting}
