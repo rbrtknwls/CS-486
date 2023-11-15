@@ -156,9 +156,101 @@ Moreover the utility of money we get is equal to the money we earn - the price w
 \end{align*}
 Therefore we have that x = k-4.
 \newpage
-\textbf{Q3.1a)} Before we determine the optimal policy give a specific risk probability, we will first determine the value function for each action. Starting with action a we have the following value functions for each state:
-
+\textbf{Q3.1a)} Before we determine the optimal policy give a specific risk probability, we will first determine the value function for each action. Starting with action $\textbf{a}$ we have the following value functions for each state:
+\[ S_1 = \gamma(0.1S_1 +0.9S_2) \]
+\[ S_2 = \gamma(p_sS_2 + (1-p_s)S_4) \]
+\[ S_4 = 10 + \gamma(0.1S_4 + 0.9S_1) \]
+For action $\textbf{b}$ we have the following value functions:
+\[ S_1 = \gamma(0.1S_1 +0.9S_3) \]
+\[ S_3 = \gamma(0.1S_3 + (0.9-p_r)S_4 + p_rS_5) \]
+\[ S_4 = 10 + \gamma(0.1S_4 + 0.9S_1) \]
+\[ S_5 = -10 + \gamma(0.1S_5 + 0.9S_1) \]
+If we look at action $\textbf{a}$ we get the following when $p_s$ is 0.2:
+\begin{align*}
+S_1 &= 0.95(0.1S_1 +0.9S_2) \\
+S_1 &= 0.095S_1 + 0.855S_2 \\
+0.905\times S_1 &= 0.855S_2 \\
+S_1 &= 0.9447513S_2 \\\\
+S_2 &= 0.95(0.2S_2 + 0.8S_4) \\
+0.81\times S_2 &= 0.762_4 \\
+S_2 &= 0.9382716S_4 \\\\
+S_4 &= 10 + 0.95(0.1S_4 + 0.9S_1) \\
+0.905\times S_4  &= 10 +0.855S_1  \\
+S_4 &= 11.049723 + 0.9447513S_1
+\end{align*}
+To solve we can plug $S_1$ in for the equation of $S_4$
+\begin{align*}
+S_4 &= 11.049723 + 0.9447513( 0.9447513S_2) \\
+S_4 &= 11.049723 + 0.9447513( 0.9447513(0.9382716S_4)) \\
+S_4 &= 11.049723 + 0.837459S_4 \\\\
+S_4 &= 67.98 \\
+S_2 &= 63.78 \\
+S_1 &= 60.26 \\
+\end{align*}
 \newpage
+Now looking at policy b, lets pick $p_r$ to be 0.01:
+\begin{align*}
+S_1 &= 0.95(0.1S_1 +0.9S_3) \\
+S_1 &= 0.095S_1 + 0.855S_3 \\
+0.905\times S_1 &= 0.855S_3 \\
+S_1 &= 0.9447513S_3 \\\\
+S_3 &= 0.95(0.1S_3 + 0.89S_4 0.01S_5) \\
+0.905\times S_3 &= 0.8455S_4 + 0.0095S_5 \\
+S_3 &= 0.93425S_4 + 0.010497S_5 \\\\
+S_4 &= 10 + 0.95(0.1S_4 + 0.9S_1) \\
+0.905\times S_4  &= 10 +0.855S_1  \\
+S_4 &= 11.049723 + 0.9447513S_1 \\\\
+S_5 &= -10 + 0.95(0.1S_4 + 0.9S_1) \\
+0.905\times S_5  &= 10 +0.855S_1  \\
+S_5 &= -11.049723 + 0.9447513S_1
+\end{align*}
+Solving this gives us:
+\begin{align*}
+S_1 = 61.52\\
+S_3 = 65.12\\
+S_4 = 69.17\\
+S_5 = 47.07
+\end{align*}
+Thus action b is better then $pr$ = 0.01. If we do the same for $pr = 0.03$ we get the following values:
+\begin{align*}
+S_1 = 58.72\\
+S_3 = 62.16\\
+S_4 = 66.52\\
+S_5 = 44.43
+\end{align*}
+In this case we can see that action a is better when $pr$ = 0.03. To find the indifference we will set $S_1$ to be the same at action a and solve:
+\newpage
+\begin{align*}
+S_3 &= 0.95(0.1S_3 + (1-pr)S_4 +  prS_5) \\
+0.905\times S_3 &= 0.95(1-pr)(11.049723 + 0.9447513S_1) + 0.95pr(-11.049723 + 0.9447513S_1) \\
+S_3 &= 0.95(0.1S_3 + (1-pr)S_4 +  prS_5) \\
+57.7245 &= 64.58141(1-pr) + 0.9447513S_1) + 43.58694pr) \\
+pr &= 0.01899
+\end{align*}
+Thus we are indifferent when pr = 0.018989.\\\\
+If we do the same with ps = 0.6 and pr = 0.1 we get with policy $\text{a}$ (I didnt list all the steps for brevity):
+\begin{align*}
+S_4 &= 52.31 \\
+S_2 &= 46.23 \\
+S_1 &= 43.67
+\end{align*}
+We then get the following for policy $\textbf{b}$:
+\begin{align*}
+S_1 &= 48.93 \\
+S_3 &= 51.80 \\
+S_4 &= 57.28 \\
+S_5 &= 35.18
+\end{align*}
+Thus we can see that policy b is better in this case. If we change pr to be 0.2 we then get the following for $\textbf{b}$ (policy a is unchanged):
+\begin{align*}
+S_1 &= 34.95 \\
+S_3 &= 37.00 \\
+S_4 &= 44.07 \\
+S_5 &= 21.97
+\end{align*}
+In this case we can see that policy a is better. Lastly the we are indifferent when pr is 0.1375.
+\newpage
+
 \textbf{Q4.1)} Below is the code used to produce the decision tree, as well as get the number of values predicted correctly vs incorrectly:
 \begin{lstlisting}
 import numpy as np

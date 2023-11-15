@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.12)  14 NOV 2023 16:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.12)  15 NOV 2023 16:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -813,33 +813,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 145--148
 
  []
 
-[3] [4] [5] [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 306--307
+[3] [4] [5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 229--232
+
+ []
+
+[7] [8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 306--307
+Underfull \hbox (badness 10000) in paragraph at lines 398--399
 
  []
 
 
-Overfull \hbox (12.32332pt too wide) in paragraph at lines 332--333
+Overfull \hbox (12.32332pt too wide) in paragraph at lines 424--425
 [][] 
  []
 
-[8] [9]
+[10] [11]
 
 Package caption Warning: Unused \captionsetup[sub] on input line 19.
 See the caption package documentation for explanation.
 
 (a3.aux) ) 
 Here is how much of TeX's memory you used:
- 20123 strings out of 476331
- 412323 string characters out of 5787765
+ 20127 strings out of 476331
+ 412361 string characters out of 5787765
  1954660 words of memory out of 5000000
- 40232 multiletter control sequences out of 15000+600000
- 518004 words of font info for 54 fonts, out of 8000000 for 9000
+ 40234 multiletter control sequences out of 15000+600000
+ 518625 words of font info for 56 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,10n,89p,427b,1943s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
@@ -855,9 +860,9 @@ robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:
 0.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
 /cm/cmsy8.pfb><C:/Users/robde/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 amsfonts/cm/cmtt9.pfb>
-Output written on a3.pdf (9 pages, 146373 bytes).
+Output written on a3.pdf (11 pages, 152678 bytes).
 PDF statistics:
- 90 PDF objects out of 1000 (max. 8388607)
+ 96 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
