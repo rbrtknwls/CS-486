@@ -51,14 +51,33 @@
 University of Waterloo \par
 CS 486 \par
 \vspace{0.05cm}
-r2knowle: 2023-11-27
+r2knowle: 2023-12-04
 \vspace{0.2cm}
 
 {\huge Assignment \# 4 \par}
 \hrule
 
 \vspace{0.5cm}
-\textbf{Q1)}
+\textbf{Q1)} In general the goal of my bot was to minimize its ability to be exploited while also maximizing its ability to exploit others. To do this I used a hedge algorithm, where I had multiple learners all vote on which move to do and if the consensus was below a certain threshold I would play random instead. My model used the following learners:
+\begin{enumerate}
+  \item A learner that always plays rock.
+  \item A learner that always plays paper.
+  \item A learner that always plays paper.
+  \item A learner that always plays the most common result from 7 rounds.
+  \item A learner that always plays the most common result from 15 rounds.
+  \item A learner that rotates right always.
+  \item A learner that rotates left always.
+  \item A learner that plays the most common result given the past move.
+\end{enumerate}
+To ensure fast testing time, all of these learners were made using coroutines (woo CS 343!) I also used two different history metrics which took into account our moves and our opponents moves:
+\begin{enumerate}
+  \item A history that only takes into account the enemies last action. It counts the number of times a specific learner would have won its choice was played. It uses a discount rate of 0.95 to help reduce the cost of losing over time.
+  \item A history that takes into account the 2nd last round (our move and the enemies last move) and the last round (just the enemies move), due to the specificity there's no discount rate on this information.
+\end{enumerate}
+If given more time I would have liked to implement a system for punishing specific learners for making bad choices rather then just rely on this history.\\
+
+I give permission for my bot to be used in any future RRPS contests.
+
 \newpage
 \textbf{Q2)} For this question we are going to be looking at the paper: "Mastering the game of Go with deep neural networks and tree search." \\\\
 

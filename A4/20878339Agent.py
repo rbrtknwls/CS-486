@@ -101,8 +101,6 @@ def create_roshambo_bot_agent(player_id, num_actions, bot_names, pop_id):
 
 # --- HELPERS ---
 
-NUMLEARNERS = 1
-
 # Really basic function for calculating best response
 def beatPred(expectedMove):
     match expectedMove:
@@ -113,22 +111,25 @@ def beatPred(expectedMove):
         case 2:  # Get scissors
             return 0  # -> return rock
 
+
 # Update the positional accuracy of predictions
-def updatePredDict(enemyMoveToPredict, actualEnemyMove , ourMoves, pastDict):
-    pastSamples = [[[0, 0], [0, 0], [0, 0]]] * NUMLEARNERS
+def updatePredDict(enemyMoveToPredict, actualEnemyMove, ourMoves, pastDict):
+    pastSamples = np.array([[[0, 0], [0, 0], [0, 0]]] * NUM_LEARNERS)
 
     if enemyMoveToPredict in pastDict:
-      pastSamples = pastDict[enemyMoveToPredict]
-
+        if type(enemyMoveToPredict) == int:
+            pastSamples = pastDict[enemyMoveToPredict] * FORGET_RATE
+        else:
+            pastSamples = pastDict[enemyMoveToPredict]
     for idx in range(0, len(ourMoves)):
-      if ourMoves[idx] == beatPred(actualEnemyMove):
-        pastSamples[idx][ourMoves[idx]][0] += 1
-      elif ourMoves[idx] != actualEnemyMove:
-        pastSamples[idx][ourMoves[idx]][1] += 1
+        if ourMoves[idx] == beatPred(actualEnemyMove):
+            pastSamples[idx][ourMoves[idx]][0] += 1
+        elif ourMoves[idx] != actualEnemyMove:
+            pastSamples[idx][ourMoves[idx]][1] += 1
     pastDict[enemyMoveToPredict] = pastSamples
 
-def determineBestMove(enemyMove, predictions, history):
 
+def determineBestMove(enemyMove, predictions, history):
     maxAccuracy = 0
     predictionNum = 0
 
@@ -138,25 +139,45 @@ def determineBestMove(enemyMove, predictions, history):
         correctPredictions = history[enemyMove][idx][predictions[idx]][0]
         incorrectPredictions = history[enemyMove][idx][predictions[idx]][1]
 
-        accuracy = (1+correctPredictions)/(1+incorrectPredictions+correctPredictions)
+        accuracy = (1 + correctPredictions) / (3 + incorrectPredictions + correctPredictions)
 
         if accuracy > maxAccuracy:
             maxAccuracy = accuracy
             predictionNum = idx
-    if maxAccuracy <= 0.7:
-        return np.random.randint(0, 3)
-    else:
-        return predictions[predictionNum]
+
+    return predictions[predictionNum], maxAccuracy
 
 
-
+NUM_LEARNERS = 8
+FORGET_RATE = 0.95
 
 
 # --- LEARNERS ---
 
+# [Dumb] === 1
+# Plays rock
+def dumbLearner1(move):
+    while True:
+        yield 0
+
+
+# [Dumb] === 2
+# Plays paper
+def dumbLearner2(move):
+    while True:
+        yield 1
+
+
+# [Dumb] === 3
+# Plays Scissors
+def dumbLearner3(move):
+    while True:
+        yield 2
+
+
 # [Basic] === 1
 # Prob learner. Does not care about transitions, returns most common result of opponent given a mem threshold
-def learner1(move):
+def basicLearner1(move):
     MEMORY = 7
 
     values = []
@@ -177,12 +198,12 @@ def learner1(move):
         if len(values) > MEMORY:
             poppedVal = values.pop(0)
             match poppedVal:
-              case 0:  # Get rock
-                numRock -= 1
-              case 1:  # Get paper
-                numPaper -= 1
-              case 2:  # Get scissors
-                numScissors -= 1
+                case 0:  # Get rock
+                    numRock -= 1
+                case 1:  # Get paper
+                    numPaper -= 1
+                case 2:  # Get scissors
+                    numScissors -= 1
 
         if numRock >= numPaper and numRock >= numScissors:
             prediction = 0
@@ -193,47 +214,169 @@ def learner1(move):
         move = yield prediction
 
 
+# [Basic] === 2
+# Prob learner. Does not care about transitions, returns most common result of opponent given a mem threshold
+def basicLearner2(move):
+    MEMORY = 15
+
+    values = []
+
+    numRock = 0
+    numPaper = 0
+    numScissors = 0
+    while True:
+        match move:
+            case 0:  # Get rock
+                numRock += 1
+            case 1:  # Get paper
+                numPaper += 1
+            case 2:  # Get scissors
+                numScissors += 1
+
+        values.append(move)
+        if len(values) > MEMORY:
+            poppedVal = values.pop(0)
+            match poppedVal:
+                case 0:  # Get rock
+                    numRock -= 1
+                case 1:  # Get paper
+                    numPaper -= 1
+                case 2:  # Get scissors
+                    numScissors -= 1
+
+        if numRock >= numPaper and numRock >= numScissors:
+            prediction = 0
+        elif numPaper >= numRock and numPaper >= numScissors:
+            prediction = 1
+        else:
+            prediction = 2
+        move = yield prediction
+
+
+# [Intermediate] === 1
+# Constantly rotate values from rock to paper to scissors
+def intermediate1(move):
+    while True:
+        move = yield (move + 1) % 3
+
+
+# [Intermediate] === 2
+# Constantly rotate values from rock to scissors to paper
+def intermediate2(move):
+    while True:
+        move = yield (move - 1) % 3
+
+
+# [Hard] === 1
+# Keep track of most
+def hard1(move):
+    pastMove = 0
+    likeyMoves = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    while True:
+        likeyMoves[pastMove][move] += 1
+        pastMove = move
+        move = yield np.argmax(likeyMoves[move])
+
 
 class MyAgent20878339(rl_agent.AbstractAgent):
-    def __init__(self, num_actions, name="bot_agent"):
-        assert num_actions > 0
-        self._num_actions = num_actions  # 3
 
-        self.learners = [learner1(0)]
-        self.predictions = [0] * len(self.learners)
+    def resetAllValues(self):
+        self.learners = [dumbLearner1(0), dumbLearner2(0), dumbLearner3(0), basicLearner1(0), basicLearner2(0),
+                         intermediate1(0), intermediate2(0), hard1(0)]
+        self.predictions = [0] * NUM_LEARNERS
+
+        # === Keep track of how accurate bots have been for a specific move
+        self.enemyHistory = {}
+
+        self.threeHistory = {}
+
+        self.totalNumberOfPredictions = 0
+        self.playedRandom = 0
+
+        self.winsWhenNotRandom = 0
+        self.randomLast = True
 
         for learner in self.learners:
             next(learner)
 
-        # Keep track of how successful predictions have been in the past
-        self.personalHistory = {}
-        self.enemyHistory = {}
-        self.enemyPlusPersonal = {}
-        self.totalNumberOfPredictions = 0
+    def __init__(self, num_actions, name="bot_agent"):
+        assert num_actions > 0
+        self._num_actions = num_actions  # 3
 
-    def step(self, time_step, is_evaluation=False):
-        if time_step.last():
-            return
+        self.resetAllValues()
 
-        game, state = pyspiel.deserialize_game_and_state(time_step.observations["serialized_state"])
+    def printDebug(self, state):
+        if len(state.history()) == 0:
+            print(self.winsWhenNotRandom, " / ", self.totalNumberOfPredictions - self.playedRandom)
+            self.resetAllValues()
 
-        action = 1
+        if not self.randomLast:
+            if state.history()[-2] == beatPred(state.history()[-1]):
+                self.winsWhenNotRandom += 1
 
-        if len(state.history()) >= 6:
-            2 + 2
+    def updateHistory(self, state):
+        self.randomLast = False
+
         if len(state.history()) >= 4:
+            # -> History based on their last move
             moveToPredictOn = state.history()[-3]
             moveTheyActuallyDid = state.history()[-1]
 
             updatePredDict(moveToPredictOn, moveTheyActuallyDid, self.predictions, self.enemyHistory)
 
-        if len(state.history()) != 0:
-            pastAction = state.history()[-1]
+        if len(state.history()) >= 6:
+            # -> History based on their 2 last moves and our last move
+            moveToPredictOn = str(state.history()[-5]) + str(state.history()[-4]) + str(state.history()[-3])
+            moveTheyActuallyDid = state.history()[-1]
 
+            updatePredDict(moveToPredictOn, moveTheyActuallyDid, self.predictions, self.threeHistory)
+
+    def calcMove(self, state):
+        action = 1
+        currentAccuracy = 0
+
+        if len(state.history()) >= 2:
+
+            # ============ Prediction based on transition ============
+
+            pastAction = state.history()[-1]
             for i in range(0, len(self.learners)):
                 self.predictions[i] = beatPred(self.learners[i].send(pastAction))
 
-            action = determineBestMove(pastAction, self.predictions, self.enemyHistory)
+            pred, acc = determineBestMove(pastAction, self.predictions, self.enemyHistory)
+
+            if acc > currentAccuracy:
+                currentAccuracy = acc
+                action = pred
+
+        if len(state.history()) >= 4:
+
+            pastAction = str(state.history()[-3]) + str(state.history()[-2]) + str(state.history()[-1])
+            pred, acc = determineBestMove(pastAction, self.predictions, self.threeHistory)
+
+            if acc > currentAccuracy:
+                currentAccuracy = acc
+                action = pred
+
+        if currentAccuracy < 0.85:
+            self.playedRandom += 1
+            self.randomLast = True
+            action = np.random.randint(0, 3)
+
+        return action
+
+    def step(self, time_step, is_evaluation=False):
+
+        if time_step.last():
+            return
+
+        game, state = pyspiel.deserialize_game_and_state(time_step.observations["serialized_state"])
+
+        self.printDebug(state)
+
+        self.updateHistory(state)
+
+        action = self.calcMove(state)
 
         self.totalNumberOfPredictions += 1
         probs = np.ones(self._num_actions) / self._num_actions
@@ -260,13 +403,24 @@ switchbot = 40
 rockbot = 32
 rotatebot = 33
 
+'''
 agents = [
     my_agent,
-    create_roshambo_bot_agent(1, 3, roshambo_bot_names, rockbot)
+    create_roshambo_bot_agent(1, 3, roshambo_bot_names, 37)
 ]
+eval_agents(env, agents, num_players, 1, verbose=True)
+eval_agents(env, agents, num_players, 1, verbose=True)
+'''
 
 print("Starting eval run.")
-
-avg_eval_returns = eval_agents(env, agents, num_players, 1, verbose=True)
+for i in range(1, 40):
+    print(i)
+    agents = [
+        my_agent,
+        create_roshambo_bot_agent(1, 3, roshambo_bot_names, i)
+    ]
+    avg_eval_returns = eval_agents(env, agents, num_players, 1, verbose=True)
+    print()
+    print()
 
 print("Avg return ", avg_eval_returns)
